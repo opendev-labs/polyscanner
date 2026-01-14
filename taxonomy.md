@@ -1,6 +1,6 @@
-# 📊 PollyScanner Screeners Taxonomy
+# 📊 Polyscan Screeners Taxonomy
 
-This document defines the categorization and metric logic for PollyScanner's probability intelligence layers.
+This document defines the categorization and metric logic for Polyscan's probability intelligence layers.
 
 ## 1. Probability Trend Screeners
 *Analyze the direction and velocity of market consensus.*

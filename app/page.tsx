@@ -1,10 +1,34 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Zap, Shield, Activity, ArrowRight, PieChart, Database, Globe, BarChart3, TrendingUp, Users } from "lucide-react"
+import { Zap, Shield, Activity, ArrowRight, BarChart3, TrendingUp, Users, Loader2 } from "lucide-react"
 import Link from "next/link"
 
 export default function PolyscanHome() {
+    const [markets, setMarkets] = useState<any[]>([])
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchMarkets = async () => {
+            try {
+                const res = await fetch('/api/markets')
+                const data = await res.json()
+                if (data.success) {
+                    setMarkets(data.markets)
+                }
+            } catch (err) {
+                console.error("Failed to fetch markets", err)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        fetchMarkets()
+        const interval = setInterval(fetchMarkets, 5000) // Poll every 5s
+        return () => clearInterval(interval)
+    }, [])
+
     return (
         <div className="min-h-screen bg-[#020202] text-white overflow-hidden selection:bg-primary selection:text-black font-sans">
             {/* Dynamic Background */}
@@ -27,18 +51,20 @@ export default function PolyscanHome() {
 
                 <div className="hidden md:flex items-center gap-10">
                     {[
-                        { label: "Intelligence Hub", href: "#" },
-                        { label: "Screeners", href: "#" },
-                        { label: "Taxonomy", href: "#" },
+                        { label: "Intelligence Hub", href: "/master" },
+                        { label: "Screeners", href: "/screeners" },
+                        { label: "Taxonomy", href: "/taxonomy" },
                         { label: "Protocol", href: "#" }
                     ].map(item => (
-                        <a key={item.label} href={item.href} className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-primary transition-colors cursor-pointer">
+                        <Link key={item.label} href={item.href} className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-primary transition-colors cursor-pointer">
                             {item.label}
-                        </a>
+                        </Link>
                     ))}
-                    <button className="px-5 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-sm hover:bg-primary transition-all shadow-lg shadow-white/5">
-                        Launch Terminal
-                    </button>
+                    <Link href="/signin">
+                        <button className="px-5 py-2.5 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-sm hover:bg-primary transition-all shadow-lg shadow-white/5">
+                            Launch Terminal
+                        </button>
+                    </Link>
                 </div>
             </nav>
 
@@ -81,11 +107,13 @@ export default function PolyscanHome() {
                             transition={{ duration: 0.7, delay: 0.3 }}
                             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
                         >
-                            <button className="group px-10 py-5 bg-primary text-black font-black uppercase tracking-widest text-xs rounded-sm flex items-center justify-center gap-3 hover:bg-white transition-all shadow-2xl shadow-primary/20">
-                                Access Intelligence Hub <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </button>
-                            <button className="px-10 py-5 bg-[#0A0A0A] border border-white/10 text-white font-black uppercase tracking-widest text-xs rounded-sm hover:border-primary/50 transition-all">
-                                Read Taxonomy
+                            <Link href="/signin">
+                                <button className="group w-full sm:w-auto px-10 py-5 bg-primary text-black font-black uppercase tracking-widest text-xs rounded-sm flex items-center justify-center gap-3 hover:bg-white transition-all shadow-2xl shadow-primary/20">
+                                    Access Intelligence Hub <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </Link>
+                            <button className="px-10 py-5 bg-[#0A0A0A] border border-white/10 text-white font-black uppercase tracking-widest text-xs rounded-sm hover:border-primary/50 transition-all font-mono">
+                                READ_TAXONOMY.exe
                             </button>
                         </motion.div>
                     </div>
@@ -104,31 +132,55 @@ export default function PolyscanHome() {
                                     <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
                                     <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
                                 </div>
-                                <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500">POLYSCAN_LIVE_FEED.json</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500 font-mono tracking-tighter">POLYSCAN_LIVE_FEED_v1.0.json</span>
                                 <div className="w-8" />
                             </div>
 
-                            <div className="p-6 space-y-4 font-mono">
-                                <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
-                                    <span className="text-zinc-500">MARKET_ID: #0X77...</span>
-                                    <span className="text-primary font-bold">PROBABILITY: 74.2%</span>
-                                </div>
-                                <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
-                                    <span className="text-zinc-500">VOLUME: $1.2M</span>
-                                    <span className="text-zinc-200">DELTA: +2.1% (1H)</span>
-                                </div>
-                                <div className="flex justify-between items-center text-xs border-b border-white/5 pb-2">
-                                    <span className="text-zinc-500">CROWD_CONVICTION: HIGH</span>
-                                    <span className="text-green-500">STATUS: STABLE</span>
-                                </div>
+                            <div className="p-4 space-y-4 font-mono overflow-hidden h-full">
+                                {isLoading ? (
+                                    <div className="h-full flex items-center justify-center">
+                                        <Loader2 className="w-6 h-6 animate-spin text-primary/50" />
+                                    </div>
+                                ) : (
+                                    <div className="space-y-3">
+                                        {markets.slice(0, 4).map((market, idx) => (
+                                            <motion.div
+                                                key={market.id}
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                transition={{ delay: idx * 0.1 }}
+                                                className="flex flex-col gap-1 border-b border-white/5 pb-3 last:border-0"
+                                            >
+                                                <div className="flex justify-between items-center text-[10px]">
+                                                    <span className="text-zinc-500 flex items-center gap-2">
+                                                        <span className={`w-1 h-1 rounded-full ${market.status === 'VOLATILE' ? 'bg-orange-500' : 'bg-emerald-500'}`} />
+                                                        {market.symbol}
+                                                    </span>
+                                                    <span className="text-primary font-black uppercase tracking-widest">{market.probability}% ODDS</span>
+                                                </div>
+                                                <div className="flex justify-between items-center text-[11px]">
+                                                    <span className="text-zinc-200 truncate pr-4">{market.name}</span>
+                                                    <span className={`font-bold ${market.delta.startsWith('+') ? 'text-emerald-500' : 'text-orange-500'}`}>
+                                                        {market.delta}
+                                                    </span>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                )}
 
-                                <div className="flex gap-1 items-end h-24 pt-4">
-                                    {[40, 60, 45, 70, 85, 65, 90, 75, 80, 55, 65, 95].map((h, i) => (
+                                <div className="flex gap-1 items-end h-16 pt-2">
+                                    {Array.from({ length: 40 }).map((_, i) => (
                                         <motion.div
                                             key={i}
                                             initial={{ height: 0 }}
-                                            animate={{ height: `${h}%` }}
-                                            transition={{ delay: 0.8 + i * 0.05, duration: 0.5 }}
+                                            animate={{ height: `${Math.random() * 80 + 20}%` }}
+                                            transition={{
+                                                repeat: Infinity,
+                                                repeatType: "reverse",
+                                                duration: 1 + Math.random(),
+                                                ease: "easeInOut"
+                                            }}
                                             className="flex-1 bg-primary/20 border-t border-primary/50"
                                         />
                                     ))}

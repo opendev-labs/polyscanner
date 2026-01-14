@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import TradingViewWidget from "@/components/tradingview-widget"
 import { MissionControl } from "@/components/mission-control"
 import { Button } from "@/components/ui/button"
@@ -27,25 +27,45 @@ export default function MasterPage() {
 
     // Scanner State
     const [scanResults, setScanResults] = useState<any[]>([])
+    const [isScanning, setIsScanning] = useState(false)
 
-    // Load initial state and poll for updates
+    // Poll the Scanner API
     useEffect(() => {
-        const loadScanResults = () => {
-            const saved = localStorage.getItem("polyscan_latest_scan") || localStorage.getItem("scantrade_latest_scan")
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved)
-                    setScanResults(parsed)
-                } catch (e) {
-                    console.error("Failed to parse scan results", e)
+        const runScanner = async () => {
+            if (isScanning || !sheetId) return;
+
+            setIsScanning(true);
+            try {
+                const res = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sheetId })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    setScanResults(data.signals);
+                    // Also update localStorage for persistence
+                    localStorage.setItem("polyscan_latest_scan", JSON.stringify(data.signals));
                 }
+            } catch (err) {
+                console.error("Scanner failed", err);
+            } finally {
+                setIsScanning(false);
             }
+        };
+
+        // Initial load from localStorage
+        const saved = localStorage.getItem("polyscan_latest_scan") || localStorage.getItem("scantrade_latest_scan");
+        if (saved) {
+            try { setScanResults(JSON.parse(saved)); } catch (e) { }
         }
 
-        loadScanResults()
-        const interval = setInterval(loadScanResults, 2000) // Poll every 2s
-        return () => clearInterval(interval)
-    }, [])
+        // Set up interval for live scanning
+        const interval = setInterval(runScanner, 15000); // 15s interval for live engine
+        runScanner(); // Run immediately
+
+        return () => clearInterval(interval);
+    }, [sheetId]);
 
     return (
         <div className="flex flex-col h-full bg-transparent overflow-hidden">
@@ -141,9 +161,11 @@ export default function MasterPage() {
                                 </div>
                                 <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Signal Stream</span>
                             </div>
-                            {scanResults.length > 0 && (
-                                <span className="text-[9px] font-mono text-primary animate-pulse">STREAMING</span>
-                            )}
+                            {isScanning ? (
+                                <span className="text-[9px] font-mono text-primary animate-pulse">SCANNING</span>
+                            ) : scanResults.length > 0 ? (
+                                <span className="text-[9px] font-mono text-primary/60">LIVE</span>
+                            ) : null}
                         </div>
                         <div className="flex-1 overflow-y-auto p-0">
                             {scanResults.length === 0 ? (
@@ -162,19 +184,31 @@ export default function MasterPage() {
                                             <th className="p-2 font-medium text-right">Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="divide-y divide-white/5">
                                         {scanResults.map((row, i) => (
-                                            <tr key={i} className="border-b border-white/5 text-xs hover:bg-white/5 transition-colors">
-                                                <td className="p-2 font-bold text-white">{row.symbol}</td>
-                                                <td className="p-2 font-mono text-emerald-400">{row.condition}</td>
-                                                <td className="p-2 text-right font-mono text-white/70">{row.price}</td>
-                                                <td className="p-2 text-right">
-                                                    <span className={`inline-block px-1.5 py-0.5 rounded text-[8px] font-bold uppercase ${row.status === 'SENT' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-yellow-500/20 text-yellow-400'
-                                                        }`}>
-                                                        {row.status}
-                                                    </span>
-                                                </td>
-                                            </tr>
+                                            <React.Fragment key={i}>
+                                                <tr className="text-xs hover:bg-white/[0.02] transition-colors border-l-2 border-transparent hover:border-primary">
+                                                    <td className="p-3 font-bold text-white">{row.symbol}</td>
+                                                    <td className="p-3 font-mono text-emerald-400/90">{row.condition}</td>
+                                                    <td className="p-3 text-right font-mono text-white/70">{row.price}</td>
+                                                    <td className="p-3 text-right">
+                                                        <span className={`inline-block px-2 py-0.5 rounded-sm text-[8px] font-black uppercase tracking-tighter ${row.status === 'SENT' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-primary/10 text-primary border border-primary/20'
+                                                            }`}>
+                                                            {row.status}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                {row.analysis && (
+                                                    <tr className="bg-primary/5 text-[10px] italic">
+                                                        <td colSpan={4} className="p-3">
+                                                            <div className="flex items-start gap-2 text-zinc-400">
+                                                                <span className="text-primary font-black not-italic tracking-tighter uppercase whitespace-nowrap">🦁 LEO:</span>
+                                                                <p className="leading-relaxed">{row.analysis}</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </React.Fragment>
                                         ))}
                                     </tbody>
                                 </table>
