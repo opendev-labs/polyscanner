@@ -1,0 +1,34 @@
+{
+    "name": "polyscan",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@ai-sdk/google": "^3.0.7",
+        "@ai-sdk/react": "^3.0.33",
+        "ai": "^6.0.31",
+        "lucide-react": "^0.454.0",
+        "next": "16.0.10",
+        "react": "19.2.1",
+        "react-dom": "19.2.1",
+        "framer-motion": "^12.26.2",
+        "clsx": "^2.1.1",
+        "tailwind-merge": "^3.3.1",
+        "tailwindcss-animate": "^1.0.7",
+        "sonner": "^1.7.4"
+    },
+    "devDependencies": {
+        "@types/node": "^22",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.5",
+        "tailwindcss": "^4.1.9",
+        "typescript": "^5"
+    }
+}
