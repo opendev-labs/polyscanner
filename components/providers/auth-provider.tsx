@@ -1,11 +1,10 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { User } from "firebase/auth";
-import { onAuthChange, signOutUser } from "@/lib/firebase-auth";
+import React, { createContext, useContext } from "react";
+import { useSession, signOut as nextAuthSignOut } from "next-auth/react";
 
 interface AuthContextType {
-    user: User | null;
+    user: any;
     loading: boolean;
     signOut: () => Promise<void>;
 }
@@ -25,28 +24,19 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const unsubscribe = onAuthChange((user) => {
-            setUser(user);
-            setLoading(false);
-        });
-
-        return () => unsubscribe();
-    }, []);
+    const { data: session, status } = useSession();
+    const loading = status === "loading";
 
     const handleSignOut = async () => {
         try {
-            await signOutUser();
+            await nextAuthSignOut({ callbackUrl: "/signin" });
         } catch (error) {
             console.error("Sign out error:", error);
         }
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, signOut: handleSignOut }}>
+        <AuthContext.Provider value={{ user: session?.user ?? null, loading, signOut: handleSignOut }}>
             {children}
         </AuthContext.Provider>
     );

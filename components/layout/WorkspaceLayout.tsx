@@ -16,7 +16,7 @@ export function WorkspaceLayout({ children }: { children: React.ReactNode }) {
     // Persist sidebar state
     useEffect(() => {
         setIsMounted(true)
-        const savedState = localStorage.getItem('polyscan-sidebar-collapsed')
+        const savedState = localStorage.getItem('polyscanner-sidebar-collapsed')
         if (savedState !== null) {
             setIsSidebarCollapsed(savedState === 'true')
         }
@@ -25,7 +25,7 @@ export function WorkspaceLayout({ children }: { children: React.ReactNode }) {
     const toggleSidebar = useCallback(() => {
         setIsSidebarCollapsed(prev => {
             const newState = !prev
-            localStorage.setItem('polyscan-sidebar-collapsed', String(newState))
+            localStorage.setItem('polyscanner-sidebar-collapsed', String(newState))
             return newState
         })
     }, [])

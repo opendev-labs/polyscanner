@@ -1,5 +1,5 @@
 {
-    "name": "polyscan",
+    "name": "polyscanner",
     "framework": "nextjs",
     "buildCommand": "npm run build",
     "installCommand": "npm install",

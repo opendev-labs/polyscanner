@@ -28,9 +28,9 @@ export function MissionControl({ onConfigChange }: MissionControlProps) {
 
     // Load saved config on mount
     useEffect(() => {
-        const savedSheet = localStorage.getItem("polyscan_sheet_id")
-        const savedSymbol = localStorage.getItem("polyscan_symbol")
-        const savedHooks = localStorage.getItem("polyscan_webhooks")
+        const savedSheet = localStorage.getItem("polyscanner_sheet_id")
+        const savedSymbol = localStorage.getItem("polyscanner_symbol")
+        const savedHooks = localStorage.getItem("polyscanner_webhooks")
 
         if (savedSheet) setSheetId(savedSheet)
         if (savedSymbol) setSymbol(savedSymbol)
@@ -38,8 +38,8 @@ export function MissionControl({ onConfigChange }: MissionControlProps) {
     }, [])
 
     const handleSaveConfig = () => {
-        localStorage.setItem("polyscan_sheet_id", sheetId)
-        localStorage.setItem("polyscan_symbol", symbol)
+        localStorage.setItem("polyscanner_sheet_id", sheetId)
+        localStorage.setItem("polyscanner_symbol", symbol)
         onConfigChange({ sheetId, symbol })
         toast.success("Dashboard Configuration Saved")
         setIsOpen(false)
@@ -61,7 +61,7 @@ export function MissionControl({ onConfigChange }: MissionControlProps) {
                 toast.success("Test Sent! Webhook Saved.")
                 const newHooks = [...savedWebhooks, { name: alertName || "New Alert", url: webhookUrl }]
                 setSavedWebhooks(newHooks)
-                localStorage.setItem("polyscan_webhooks", JSON.stringify(newHooks))
+                localStorage.setItem("polyscanner_webhooks", JSON.stringify(newHooks))
                 setWebhookUrl("")
                 setAlertName("")
             } else {

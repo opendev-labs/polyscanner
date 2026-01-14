@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import {
     LayoutDashboard,
     Search,
@@ -19,7 +20,7 @@ import {
     Plus,
     Folder,
     Database,
-    PieChart
+    PieChart as PieChartIcon,
 } from "lucide-react"
 import { useAuth } from "@/components/providers/auth-provider"
 import {
@@ -38,7 +39,7 @@ interface SidebarProps {
 const navItems = [
     { id: 'dashboard', label: "Mission Control", href: "/master", icon: LayoutDashboard },
     { id: 'leo', label: "LEO Architect", href: "/leo", icon: Cpu },
-    { id: 'markets', label: "Probability Explorer", href: "/markets", icon: PieChart },
+    { id: 'markets', label: "Probability Explorer", href: "/markets", icon: PieChartIcon },
     { id: 'screeners', label: "Scanners", href: "/screeners", icon: Search },
     { id: 'discord', label: "Alert Feed", href: "/discord", icon: MessageSquare },
     { id: 'sheets', label: "Sheet Logic", href: "/google-sheets", icon: FileSpreadsheet },
@@ -57,13 +58,13 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             `}
         >
             {/* Header / Logo */}
-            <div className={`p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-border/50 h-[44px]`}>
+            <div className={`p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border-b border-white/5 h-[44px]`}>
                 {!isCollapsed && (
                     <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center">
                             <span className="text-[10px] font-black text-black">P</span>
                         </div>
-                        <span className="font-bold text-sm tracking-tight text-white/90">POLYSCAN <span className="text-primary italic">Pro</span></span>
+                        <span className="font-bold text-sm tracking-tight text-white/90">Polyscan <span className="text-primary italic">Pro</span></span>
                     </div>
                 )}
                 {isCollapsed && (
@@ -92,7 +93,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                                     <Link
                                         href={item.href}
                                         className={`
-                                            flex items-center gap-3 px-2 py-2 rounded-md transition-all duration-200 group relative
+                                            flex items-center gap-3 px-2 py-2 rounded-md transition-all duration-300 group relative
                                             ${isActive
                                                 ? "bg-primary/10 text-primary"
                                                 : "text-zinc-500 hover:text-zinc-300 hover:bg-white/5"
@@ -106,7 +107,11 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                                             </span>
                                         )}
                                         {isActive && (
-                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-primary rounded-r-full" />
+                                            <motion.div
+                                                layoutId="active-nav"
+                                                className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-primary rounded-r-full"
+                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                            />
                                         )}
                                     </Link>
                                 </TooltipTrigger>
@@ -135,17 +140,17 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             <div className="p-2 border-t border-border/50 bg-[#080808]">
                 {user ? (
                     <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} p-1`}>
-                        <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                            {user.photoURL ? (
-                                <img src={user.photoURL} alt={user.displayName || user.email || ''} className="w-full h-full rounded-full" />
+                        <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 overflow-hidden">
+                            {user.image ? (
+                                <img src={user.image} alt={user.name || user.email || ''} className="w-full h-full object-cover" />
                             ) : (
                                 <User className="w-4 h-4 text-primary" />
                             )}
                         </div>
                         {!isCollapsed && (
                             <div className="flex-1 min-w-0">
-                                <div className="text-[11px] font-bold text-zinc-200 truncate leading-tight">{user.displayName || user.email}</div>
-                                <div className="text-[9px] font-black text-primary uppercase tracking-tighter">Pro member</div>
+                                <div className="text-[11px] font-bold text-zinc-200 truncate leading-tight">{user.name || user.email}</div>
+                                <div className="text-[9px] font-black text-primary uppercase tracking-tighter">Identity Verified</div>
                             </div>
                         )}
                         {!isCollapsed && (

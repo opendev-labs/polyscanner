@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Zap, Shield, Activity, ArrowRight, PieChart, Database, Globe, BarChart3, TrendingUp, Users } from "lucide-react"
 import Link from "next/link"
 
-export default function PollyScannerHome() {
+export default function PolyscanHome() {
     return (
         <div className="min-h-screen bg-[#020202] text-white overflow-hidden selection:bg-primary selection:text-black font-sans">
             {/* Dynamic Background */}
@@ -20,7 +20,7 @@ export default function PollyScannerHome() {
                         <Zap className="w-5 h-5 text-primary" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-lg font-black italic tracking-tighter uppercase leading-none">POLLYSCANNER</span>
+                        <span className="text-lg font-black italic tracking-tighter uppercase leading-none">Polyscan</span>
                         <span className="text-[9px] font-black tracking-[0.2em] text-primary/80 uppercase">Intelligence Desk</span>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ export default function PollyScannerHome() {
                             transition={{ duration: 0.7, delay: 0.2 }}
                             className="text-lg md:text-xl text-zinc-400 max-w-xl font-medium leading-relaxed mx-auto lg:mx-0"
                         >
-                            PollyScanner is the machine intelligence desk for prediction markets.
+                            Polyscan is the machine intelligence desk for prediction markets.
                             We transform crowd noise into actionable signals for institutional-grade probability analysis.
                         </motion.p>
 
@@ -104,7 +104,7 @@ export default function PollyScannerHome() {
                                     <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
                                     <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
                                 </div>
-                                <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500">POLLYSCANNER_LIVE_FEED.json</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500">POLYSCAN_LIVE_FEED.json</span>
                                 <div className="w-8" />
                             </div>
 
@@ -185,7 +185,7 @@ export default function PollyScannerHome() {
                             Ready to Read <br /> the Crowd?
                         </h2>
                         <p className="text-black/70 max-w-xl mx-auto font-bold text-lg">
-                            PollyScanner delivers the insights you need to win in prediction markets. Join the intelligence revolution.
+                            Polyscan delivers the insights you need to win in prediction markets. Join the intelligence revolution.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
                             <button className="px-12 py-5 bg-black text-white font-black uppercase tracking-widest text-xs rounded-sm hover:scale-105 transition-all">
@@ -208,7 +208,7 @@ export default function PollyScannerHome() {
                     <div className="flex flex-col items-center md:items-start gap-3">
                         <div className="flex items-center gap-2 text-zinc-300">
                             <Zap className="w-4 h-4 text-primary" />
-                            <span className="text-sm font-black italic tracking-tighter uppercase">POLLYSCANNER PROTOCOL</span>
+                            <span className="text-sm font-black italic tracking-tighter uppercase">Polyscan PROTOCOL</span>
                         </div>
                         <p className="text-[10px] uppercase font-bold tracking-[0.3em]">Institutional Strategy Desktop</p>
                     </div>

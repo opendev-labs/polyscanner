@@ -1,59 +1,55 @@
 # PollyScanner
 
-PollyScanner is a next-generation probability intelligence desk for prediction markets.
-It provides real-time market scanning, probability insights, and crowd sentiment analytics — designed to compete with Polymarket.com.
+**PollyScanner** is a next-generation **prediction market intelligence and screening platform**. 
 
-Unlike traditional prediction platforms, PollyScanner operates as a non-custodial intelligence engine:
+It analyzes real-time probability markets to surface crowd sentiment, conviction shifts, and market inefficiencies. Unlike traditional prediction platforms, PollyScanner functions as a **professional intelligence layer**—turning decentralized prediction markets into actionable signals, dashboards, and probability insights for traders, analysts, and automated systems.
 
-✅ **Explores market inefficiencies and probability arbitrage**
+## Why PollyScanner?
 
-✅ **Generates actionable signals from decentralized event markets**
+Polymarket is a **marketplace**. 
+PollyScanner is an **intelligence engine**.
 
-✅ **Aggregates crowd conviction and trends for informed forecasting**
+### Key Advantages:
+- **No Execution Bias**: Objective analysis without the push to trade.
+- **Multi-Market Scanning**: Built to scan across multiple decentralized data sources.
+- **Signal-First Design**: Focused on probability deltas, trend acceleration, and crowd conviction.
+- **Automation-Ready**: Designed for quant workflows, bots, and Discord intelligence feeds.
+- **Professional Positioning**: An intelligence desk, not a gambling frontend.
 
-✅ **Built for Polygon + USDC-compatible markets**
+> **Polymarket lets you trade probabilities. PollyScanner tells you which probabilities matter.**
 
-✅ **Black + Orange professional UI, optimized for high-performance analytics**
+---
 
-## Key Features
+## Core Features
 
-### Prediction Market Intelligence
-- Tracks Yes/No market probabilities
-- Computes confidence deltas & trend signals
-- Identifies arbitrage and informational latency opportunities
+- ✅ **Real-time Probability Screeners**: Institutional-grade filters for high-conviction events.
+- ✅ **Confidence Delta Metrics**: Track how fast public opinion is shifting.
+- ✅ **Crowd Conviction Heatmaps**: Visualize where the "smart money" is positioning.
+- ✅ **LEO AI: The PollyScanner Architect**: Automated intelligence modules for predictive insights.
+- ✅ **Black + Orange Professional UI**: High-density, performance-optimized dashboard.
 
-### Intelligence Hub
-- **LEO AI: The PollyScanner Architect**
-- Automated analytics without exposing users to gambling
-- Modular and extendable probability engines
+## Deployment & Setup
 
-### Screeners & Dashboards
-- Real-time probability screeners
-- Event filtering by market type or outcome likelihood
-- Live updates powered by decentralized data feeds
+PollyScanner is built on a high-performance Next.js stack, optimized for low-latency market data.
 
-### Professional UI/UX
-- Dark + orange Postman-style theme
-- Animated loading bars & responsive dashboards
-- Sidebar + header panels, toggleable intelligence modules
-
-## Architecture Overview
-- **Frontend**: Next.js + React, fully black + orange theme
-- **Backend (optional)**: FastAPI / Node for probability aggregation
-- **Storage**: Non-destructive local storage (`pollyscanner_*`)
-- **Deployment**: GitHub + Vercel (https://pollyscanner.vercel.app)
-- **AI Integration**: LEO AI Architect for market intelligence
-
-## Setup Instructions
 ```bash
 git clone https://github.com/opendev-labs/pollyscanner.git
 cd pollyscanner
 npm install
-npx vercel
+npm run dev
 ```
 
-## Design Philosophy
-- **Non-destructive**: Works independently without affecting other projects
-- **Additive upgrades**: Future features can be integrated without refactoring
-- **Competitor-grade**: Built to rival Polymarket.com in speed, insights, and UX
-- **Safe**: No direct betting or custodial execution — analytics only
+Live at: [https://polyscannerner.vercel.app](https://polyscannerner.vercel.app)
+
+---
+
+## Technical Architecture
+
+- **Frontend**: Next.js + React + Tailwind 4 (AMOLED-ready theme)
+- **Intelligence**: LEO Architecture (LLM-driven probability analysis)
+- **Data Rails**: Polygon + USDC-denominated decentralised data feeds
+- **Isolation**: Non-destructive parallel deployment history
+
+---
+
+© 2026 OpenDev Labs. All rights reserved.
