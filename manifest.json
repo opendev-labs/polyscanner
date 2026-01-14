@@ -1,13 +1,13 @@
 {
-    "name": "polyscan",
-    "displayName": "PolyScan",
+    "name": "pollyscanner",
+    "displayName": "PollyScanner",
     "version": "0.1.0-alpha",
     "status": "active-evolution",
-    "mode": "read-only-intelligence",
-    "description": "Parallel probability intelligence engine. Extends ScanTrade logic for prediction markets.",
+    "mode": "intelligence-desk",
+    "description": "Probability intelligence and market scanning platform. Rivaling Polymarket in insights.",
     "philosophy": "Probability-intelligence and market-screening platform.",
     "scope": {
-        "filesystem": "polyscan/*",
+        "filesystem": "pollyscanner/*",
         "network": "polygon-data-rails",
         "ui": "isolated-overlays"
     },
@@ -25,10 +25,6 @@
         "sideBySide": true,
         "optInOnly": true,
         "zeroOverwrite": true
-    },
-    "guards": {
-        "requireExplicitMount": true,
-        "denyImplicitImports": true
     },
     "updatedAt": "2026-01-14"
 }

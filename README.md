@@ -1,67 +1,59 @@
-# 🔷 Polyscan (Evolution of ScanTrade)
+# PollyScanner
 
-**Polyscan** is an advanced **probability-intelligence and market-screening platform**, evolved from ScanTrade using a fully additive, non-destructive upgrade path.
+PollyScanner is a next-generation probability intelligence desk for prediction markets.
+It provides real-time market scanning, probability insights, and crowd sentiment analytics — designed to compete with Polymarket.com.
 
-Polyscan does **not replace** ScanTrade.
-It **extends it**.
+Unlike traditional prediction platforms, PollyScanner operates as a non-custodial intelligence engine:
 
----
+✅ **Explores market inefficiencies and probability arbitrage**
 
-## 🧠 What Polyscan Is (Rewritten from Polymarket Logic)
+✅ **Generates actionable signals from decentralized event markets**
 
-Polyscan is:
+✅ **Aggregates crowd conviction and trends for informed forecasting**
 
-✔ A **probability intelligence screener platform**
-✔ Built on **crypto-native data rails** (Polygon-compatible, USDC-denominated signals)
-✔ Transforms **event-based markets into readable screeners**
-✔ Converts crowd positioning into **real-time probability metrics**
-✔ Uses **smart-contract–verified outcomes** as truth sources
-✔ Operates as **peer-derived intelligence**, not house-driven betting
+✅ **Built for Polygon + USDC-compatible markets**
 
-> Think: **Bloomberg Terminal for probability**, not a gambling app.
+✅ **Black + Orange professional UI, optimized for high-performance analytics**
 
----
+## Key Features
 
-## 🔍 How Polyscan Differs from Polymarket (Important)
+### Prediction Market Intelligence
+- Tracks Yes/No market probabilities
+- Computes confidence deltas & trend signals
+- Identifies arbitrage and informational latency opportunities
 
-| Polymarket          | Polyscan                               |
-| ------------------- | -------------------------------------- |
-| Trading interface   | **Screening & intelligence interface** |
-| Buy/Sell shares     | **Observe probability flows**          |
-| User wagering       | **User analysis & filtering**          |
-| Outcome speculation | **Signal extraction**                  |
-| Gambling perception | **Decision intelligence**              |
+### Intelligence Hub
+- **LEO AI: The PollyScanner Architect**
+- Automated analytics without exposing users to gambling
+- Modular and extendable probability engines
 
-Polyscan **reads markets** — it does not force users to participate in them.
+### Screeners & Dashboards
+- Real-time probability screeners
+- Event filtering by market type or outcome likelihood
+- Live updates powered by decentralized data feeds
 
----
+### Professional UI/UX
+- Dark + orange Postman-style theme
+- Animated loading bars & responsive dashboards
+- Sidebar + header panels, toggleable intelligence modules
 
-## 📊 What Polyscan Screeners Do
+## Architecture Overview
+- **Frontend**: Next.js + React, fully black + orange theme
+- **Backend (optional)**: FastAPI / Node for probability aggregation
+- **Storage**: Non-destructive local storage (`pollyscanner_*`)
+- **Deployment**: GitHub + Vercel (https://pollyscanner.vercel.app)
+- **AI Integration**: LEO AI Architect for market intelligence
 
-Polyscan converts raw prediction-market data into:
+## Setup Instructions
+```bash
+git clone https://github.com/opendev-labs/pollyscanner.git
+cd pollyscanner
+npm install
+npx vercel
+```
 
-* 📈 **Probability trend screeners**
-* 🧮 **Confidence delta metrics**
-* 🧠 **Crowd conviction heatmaps**
-* ⏱ **Time-weighted probability shifts**
-* 🔄 **Cross-market correlation signals**
-
-All presented as **screeners**, not trades.
-
----
-
-## 🧬 Data Safety & Backward Compatibility (Critical)
-
-✔ Existing `scantrade_*` data → **unchanged**
-✔ Existing ScanTrade UI → **unchanged**
-✔ Existing Vercel deployment → **unchanged**
-✔ Existing repo history → **unchanged**
-
-### Polyscan runs in parallel:
-
-* New namespace: `polyscan_*`
-* New folder: `/polyscan`
-* New manifests, routes, and storage keys
-* Zero overwrite, zero migration forced
-
-ScanTrade continues to work exactly as before.
+## Design Philosophy
+- **Non-destructive**: Works independently without affecting other projects
+- **Additive upgrades**: Future features can be integrated without refactoring
+- **Competitor-grade**: Built to rival Polymarket.com in speed, insights, and UX
+- **Safe**: No direct betting or custodial execution — analytics only
