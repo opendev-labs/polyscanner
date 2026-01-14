@@ -1,0 +1,34 @@
+{
+    "name": "polyscan",
+    "displayName": "PolyScan",
+    "version": "0.1.0-alpha",
+    "status": "active-evolution",
+    "mode": "read-only-intelligence",
+    "description": "Parallel probability intelligence engine. Extends ScanTrade logic for prediction markets.",
+    "philosophy": "Probability-intelligence and market-screening platform.",
+    "scope": {
+        "filesystem": "polyscan/*",
+        "network": "polygon-data-rails",
+        "ui": "isolated-overlays"
+    },
+    "taxonomy": {
+        "types": [
+            "Probability Trend Screeners",
+            "Confidence Delta Metrics",
+            "Crowd Conviction Heatmaps",
+            "Time-Weighted Probability Shifts",
+            "Cross-Market Correlation Signals"
+        ]
+    },
+    "safety": {
+        "nonDestructive": true,
+        "sideBySide": true,
+        "optInOnly": true,
+        "zeroOverwrite": true
+    },
+    "guards": {
+        "requireExplicitMount": true,
+        "denyImplicitImports": true
+    },
+    "updatedAt": "2026-01-14"
+}
