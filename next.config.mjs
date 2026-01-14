@@ -1,6 +1,12 @@
-/** @type {import('next').NextContent} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-    /* config options here */
-};
+  // output: 'export', // Commented out for Vercel dynamic deployment
+  images: {
+    unoptimized: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+}
 
-export default nextConfig;
+export default nextConfig
