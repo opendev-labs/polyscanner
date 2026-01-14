@@ -18,7 +18,8 @@ import {
     FileSpreadsheet,
     Plus,
     Folder,
-    Database
+    Database,
+    PieChart
 } from "lucide-react"
 import { useAuth } from "@/components/providers/auth-provider"
 import {
